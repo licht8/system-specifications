@@ -4,8 +4,8 @@ chcp 65001 > nul
 
 if not exist "build" (
     set /p build_type="Do you want to build the program in Debug or Release version? (D/R): "
-	if "%build_type%"=="" set "build_type=D"
 	)
+if "%build_type%"=="" set "build_type=D"
 
 if not exist "build" (
     mkdir build
