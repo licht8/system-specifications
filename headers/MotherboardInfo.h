@@ -1,13 +1,11 @@
 #pragma once
 
-// Class for retrieving and displaying motherboard information using WMI
 class MotherboardInfo {
 private:
-    IWbemLocator* pLocator;    // Pointer to IWbemLocator interface
-    IWbemServices* pServices;  // Pointer to IWbemServices interface
+    IWbemLocator* pLocator;    
+    IWbemServices* pServices;  
 
 public:
-    // Constructor: Initialize COM, WMI components, and connect to the WMI namespace
     MotherboardInfo() : pLocator(nullptr), pServices(nullptr) {
         HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
         if (FAILED(hr)) {
@@ -45,12 +43,10 @@ public:
         }
     }
 
-    // Destructor: Clean up WMI components and COM
     ~MotherboardInfo() {
         Cleanup();
     }
 
-    // Clean up WMI components and COM
     void Cleanup() {
         if (pServices) {
             pServices->Release();
@@ -65,7 +61,6 @@ public:
         CoUninitialize();
     }
 
-    // Retrieve and display motherboard information using WMI
     void GetMotherboardInfo() {
         if (!pServices) {
             std::cerr << "WMI services not available." << std::endl;
@@ -85,7 +80,6 @@ public:
         IWbemClassObject* pClassObj = nullptr;
         ULONG uReturn = 0;
 
-        // Iterate through the enumeration and retrieve motherboard information
         while (pEnumerator) {
             hr = pEnumerator->Next(WBEM_INFINITE, 1, &pClassObj, &uReturn);
 
@@ -94,7 +88,6 @@ public:
 
             VARIANT vtProp;
 
-            // Retrieve motherboard product
             hr = pClassObj->Get(L"Product", 0, &vtProp, 0, 0);
 
             if (SUCCEEDED(hr)) {
@@ -105,7 +98,6 @@ public:
                 VariantClear(&vtProp);
             }
 
-            // Retrieve motherboard manufacturer
             hr = pClassObj->Get(L"Manufacturer", 0, &vtProp, 0, 0);
 
             if (SUCCEEDED(hr)) {
