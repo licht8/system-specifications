@@ -20,11 +20,11 @@ After successfully building the project, the executable file will start automati
 
 * Start **RUN.bat**
 * Find [**SystemSpecifications.exe**]() in **/build/Debug** for Debug and **/build/Release** for Release
-* ```
-  ./build/Debug/SystemSpecifications.exe # for Debug
+* ``` for Debug
+  ./build/Debug/SystemSpecifications.exe
   ```
-  ```
-    ./build/Release/SystemSpecifications.exe # for Release
+  ``` for Release
+  ./build/Release/SystemSpecifications.exe
   ```
   
 
