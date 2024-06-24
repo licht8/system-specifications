@@ -20,6 +20,12 @@ After successfully building the project, the executable file will start automati
 
 * Start **RUN.bat**
 * Find [**SystemSpecifications.exe**]() in **/build/Debug** for Debug and **/build/Release** for Release
+* ```
+  ./build/Debug/SystemSpecifications.exe # for Debug
+  ```
+  ```
+    ./build/Release/SystemSpecifications.exe # for Release
+  ```
   
 
 ![Image alt](https://github.com/licht8/system-specifications/blob/main/images/photo_2024-02-23_21-38-15.jpg)
