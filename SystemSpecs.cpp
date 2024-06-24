@@ -17,32 +17,7 @@
 
 typedef NTSTATUS(WINAPI* RtlGetVersionFunc)(PRTL_OSVERSIONINFOW);
 
-//class WindowsVersionChecker {
-//public:
-//    WindowsVersionChecker() : hMod(GetModuleHandle(L"ntdll.dll")) {}
-//
-//    bool getVersion(RTL_OSVERSIONINFOW& rovi) {
-//        if (hMod) {
-//            RtlGetVersionFunc rtlGetVersion = reinterpret_cast<RtlGetVersionFunc>(GetProcAddress(hMod, "RtlGetVersion"));
-//            if (rtlGetVersion != nullptr) {
-//                rovi.dwOSVersionInfoSize = sizeof(rovi);
-//
-//                if (rtlGetVersion(&rovi) == 0) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//
-//private:
-//    HMODULE hMod;
-//};
-
 int main() {
-
-    // Code for positioning the console window
-    // (code to center the console window on the screen)
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
@@ -57,7 +32,6 @@ int main() {
 
     std::cout << "\t" << std::endl;
 
-    // Display a logo from a file (logo.txt)
     std::string filename = "logo.txt";
     FileReader fileReader(filename);
     fileReader.readFileAndPrint();
