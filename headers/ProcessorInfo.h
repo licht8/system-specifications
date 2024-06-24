@@ -1,13 +1,10 @@
 #pragma once
 #include "SetConsoleColor.h"
 
-// Class for retrieving and displaying processor information using WMI
 class ProcessorInfo {
 public:
-    // Constructor: Initialize member pointers
     ProcessorInfo() : pLoc(nullptr), pSvc(nullptr), pEnumerator(nullptr) {}
 
-    // Destructor: Release resources and perform cleanup
     ~ProcessorInfo() {
         if (pEnumerator) pEnumerator->Release();
         if (pSvc) pSvc->Release();
@@ -15,18 +12,15 @@ public:
         CoUninitialize();
     }
 
-    // Initialize WMI and set up security
     void initializeWMI() {
         HRESULT hres;
 
-        // Initialize COM library
         hres = CoInitializeEx(0, COINIT_MULTITHREADED);
         if (FAILED(hres)) {
             std::cerr << "Failed to initialize COM library. Error code: " << hres << std::endl;
             return;
         }
 
-        // Initialize COM Security
         hres = CoInitializeSecurity(
             NULL,
             -1,
@@ -45,7 +39,6 @@ public:
             return;
         }
 
-        // Initialize WMI Locator
         hres = CoCreateInstance(
             CLSID_WbemLocator,
             0,
@@ -60,7 +53,6 @@ public:
             return;
         }
 
-        // Connect to the WMI namespace
         hres = pLoc->ConnectServer(
             _bstr_t(L"ROOT\\CIMV2"),
             NULL,
@@ -79,7 +71,6 @@ public:
             return;
         }
 
-        // Set proxy blanket to handle security
         hres = CoSetProxyBlanket(
             pSvc,
             RPC_C_AUTHN_WINNT,
@@ -100,11 +91,9 @@ public:
         }
     }
 
-    // Retrieve and display processor information
     void retrieveProcessorInfo() {
         HRESULT hres;
 
-        // Execute WMI query to retrieve processor information
         hres = pSvc->ExecQuery(
             bstr_t("WQL"),
             bstr_t("SELECT * FROM Win32_Processor"),
@@ -121,7 +110,6 @@ public:
         IWbemClassObject* pclsObj = NULL;
         ULONG uReturn = 0;
 
-        // Iterate through the enumeration and retrieve processor information
         while (pEnumerator) {
             hres = pEnumerator->Next(WBEM_INFINITE, 1, &pclsObj, &uReturn);
             if (uReturn == 0)
@@ -129,7 +117,6 @@ public:
 
             VARIANT vtProp;
 
-            // Retrieve processor name
             hres = pclsObj->Get(L"Name", 0, &vtProp, 0, 0);
             if (SUCCEEDED(hres)) {
                 SetConsoleColor(FOREGROUND_GREEN);
@@ -144,7 +131,7 @@ public:
     }
 
 private:
-    IWbemLocator* pLoc;         // Pointer to IWbemLocator interface
-    IWbemServices* pSvc;        // Pointer to IWbemServices interface
-    IEnumWbemClassObject* pEnumerator;  // Pointer to IEnumWbemClassObject interface
+    IWbemLocator* pLoc;
+    IWbemServices* pSvc;
+    IEnumWbemClassObject* pEnumerator;
 };
