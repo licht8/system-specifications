@@ -7,7 +7,7 @@ System Specifications is a simple C++ program designed to output information abo
 * Simple and easy to understand console interface.
 
 ## Dependencies
-[CMake (version 3.0 and above)](https://cmake.org/download/)
+[CMake (version 3.10 and above)](https://cmake.org/download/)
 
 ## Building the Project
 ```
