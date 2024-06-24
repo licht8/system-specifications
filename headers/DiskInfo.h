@@ -1,24 +1,18 @@
 #pragma once
 
-// Class for retrieving disk information using WMI
 class DiskInfoRetriever {
 public:
-    // Constructor
     DiskInfoRetriever() : pLoc(nullptr), pSvc(nullptr), pEnumerator(nullptr) {}
 
-    // Destructor
     ~DiskInfoRetriever() {
         cleanup();
     }
 
-    // Initialize WMI components for disk information retrieval
     void initializeWMI() {
-        // Initialize security for WMI
         HRESULT hres = CoInitializeSecurity(
             nullptr, -1, nullptr, nullptr, RPC_C_AUTHN_LEVEL_DEFAULT,
             RPC_C_IMP_LEVEL_IMPERSONATE, nullptr, EOAC_NONE, nullptr);
 
-        // Create an IWbemLocator instance
         hres = CoCreateInstance(
             CLSID_WbemLocator, 0, CLSCTX_INPROC_SERVER, IID_IWbemLocator,
             (LPVOID*)&pLoc
@@ -30,7 +24,6 @@ public:
             return;
         }
 
-        // Connect to the WMI namespace
         hres = pLoc->ConnectServer(
             _bstr_t(L"ROOT\\CIMV2"), NULL, NULL, 0, NULL, 0, 0, &pSvc
         );
@@ -41,7 +34,6 @@ public:
             return;
         }
 
-        // Set security levels for the proxy
         hres = CoSetProxyBlanket(
             pSvc, RPC_C_AUTHN_WINNT, RPC_C_AUTHZ_NONE, nullptr, RPC_C_AUTHN_LEVEL_CALL,
             RPC_C_IMP_LEVEL_IMPERSONATE, nullptr, EOAC_NONE
@@ -54,7 +46,6 @@ public:
         }
     }
 
-    // Retrieve disk information using WMI
     void retrieveDiskInfo() {
         HRESULT hres = pSvc->ExecQuery(
             bstr_t("WQL"),
@@ -79,7 +70,6 @@ public:
 
             VARIANT vtProp;
 
-            // Retrieve disk model
             hres = pclsObj->Get(L"Model", 0, &vtProp, 0, 0);
             if (SUCCEEDED(hres)) {
                 SetConsoleColor(FOREGROUND_GREEN);
@@ -94,11 +84,10 @@ public:
     }
 
 private:
-    IWbemLocator* pLoc;         // Pointer to IWbemLocator interface
-    IWbemServices* pSvc;        // Pointer to IWbemServices interface
-    IEnumWbemClassObject* pEnumerator;  // Pointer to IEnumWbemClassObject interface
+    IWbemLocator* pLoc;        
+    IWbemServices* pSvc;
+    IEnumWbemClassObject* pEnumerator;
 
-    // Clean up WMI components
     void cleanup() {
         if (pEnumerator) pEnumerator->Release();
         if (pSvc) pSvc->Release();
