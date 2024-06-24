@@ -19,7 +19,6 @@ and then you have to open [**RUN.bat**]() file
 After successfully building the project, the executable file will start automatically, but if you want to open it again or have any problems:
 
 * Start **RUN.bat**
-
 * Find [**SystemSpecifications.exe**]() in **/build/Debug** for Debug and **/build/Release** for Release
 
   
