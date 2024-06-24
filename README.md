@@ -20,9 +20,10 @@ After successfully building the project, the executable file will start automati
 
 
 ## Running the Application
-After successfully building the project, the executable file will start automatically, but if you want to open it again or have any problems: you can run the application by opening [**RUN.bat**] by executing the following command from the **build/Debug/** directory (in a case you chose Release **build/Release/**
+After successfully building the project, the executable file will start automatically, but if you want to open it again or have any problems:
 
 * Start **RUN.bat**
 * Find Debig/Release .exe in **/build/Debug** for Debug and **/build/Release** for Release
+
 
 ![Image alt](https://github.com/licht8/system-specifications/blob/main/images/photo_2024-02-23_21-38-15.jpg)
