@@ -56,7 +56,7 @@ if exist "Release" (
         echo .exe file not found in Debug directory.
     )
 ) else (
-    echo Neither Release nor Debug directory found.
+    echo Neither Release or Debug directory found.
 )
 
 endlocal
